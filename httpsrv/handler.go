@@ -12,7 +12,7 @@ import (
 
 func (s *Server) listTamu(w http.ResponseWriter, r *http.Request) {
 	var tamus []model.Tamu
-	if err := s.db.Find(&tamus).Error; err != nil {
+	if err := s.DB.Find(&tamus).Error; err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println(err)
 		return
@@ -39,13 +39,16 @@ func (s *Server) createTamu(w http.ResponseWriter, r *http.Request) {
 		Name:      name,
 		Keperluan: keperluan,
 	}
-	if err := s.db.Create(&tamu).Error; err != nil {
+	if err := s.DB.Create(&tamu).Error; err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println(err)
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
+	if err := json.NewEncoder(w).Encode(tamu); err != nil {
+		fmt.Println(err)
+	}
 }
 
 func (s *Server) deleteTamu(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +60,7 @@ func (s *Server) deleteTamu(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := s.db.Delete(model.Tamu{}, id).Error; err != nil {
+	if err := s.DB.Delete(model.Tamu{}, id).Error; err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println(err)
 		return

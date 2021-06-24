@@ -11,7 +11,7 @@ func main() {
 	srv := httpsrv.Server{
 		ListenIP:   "127.0.0.1",
 		ListenPort: "8080",
-		DBConnStr:  "postgres://postgres:password@127.0.0.1:6432/bukutamu",
+		DBConnStr:  "postgres://postgres:password@127.0.0.1:6432/tamudb",
 	}
 
 	fmt.Println("starting http server...")

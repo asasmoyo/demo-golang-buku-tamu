@@ -15,7 +15,7 @@ type Server struct {
 	DBConnStr  string
 
 	router chi.Router
-	db     *gorm.DB
+	DB     *gorm.DB
 }
 
 func (s *Server) Init() error {
@@ -24,7 +24,7 @@ func (s *Server) Init() error {
 	if err != nil {
 		return err
 	}
-	s.db = db
+	s.DB = db
 
 	s.router = chi.NewRouter()
 	s.router.Route("/api", func(r chi.Router) {
